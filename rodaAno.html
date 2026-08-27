@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="style.css" />
+    <title>Grimórios</title>
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bitcount:wght@100..900&family=Sora:wght@100..800&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <style>
+      /* Fundo Verde Terroso para a página inteira */
+      body {
+        background-color: #3b4d36 !important;
+      }
+
+      .book-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-top: 20px;
+      }
+
+      .book-container {
+        position: relative;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+      }
+
+      /* Páginas internas pretas com detalhes dourados */
+      .page {
+        background-color: #111111; 
+        color: #e0dcd3; /* Dourado pálido para não cansar a leitura */
+        border: 1px solid #d4af37;
+        box-shadow: inset 0 0 25px rgba(212, 175, 55, 0.05); /* Brilho interno mágico */
+        box-sizing: border-box;
+        overflow: hidden;
+      }
+
+      .page-content {
+        padding: 20px;
+        height: 100%;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Títulos em dourado vibrante */
+      .page-content h3 {
+        color: #d4af37;
+        font-family: 'Sora', sans-serif;
+        text-shadow: 0 0 5px rgba(212, 175, 55, 0.3);
+      }
+
+      /* Estilização da capa e contracapa */
+      .page-cover {
+        background-color: #0a0a0a;
+        color: #d4af37;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border: 2px solid #d4af37;
+      }
+
+      .page-cover h2 {
+        font-family: 'Sora', sans-serif;
+        font-size: 2rem;
+        margin-bottom: 10px;
+      }
+
+      .page-cover p {
+        font-size: 1rem;
+        opacity: 0.8;
+      }
+
+      .book-controls {
+        margin-top: 30px;
+        display: flex;
+        gap: 15px;
+      }
+
+      .book-controls button {
+        background-color: #2b3a27; /* Verde escuro acompanhando o fundo */
+        color: #d4af37;
+        border: 1px solid #d4af37;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: 'Sora', sans-serif;
+        font-weight: bold;
+        transition: 0.3s;
+      }
+
+      .book-controls button:hover {
+        background-color: #d4af37;
+        color: #111111;
+      }
+
+      .widget-temporal {
+        background: #111111;
+        color: #d4af37;
+        border: 2px solid #d4af37;
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        margin: 30px auto;
+        max-width: 800px;
+        font-family: 'Sora', sans-serif;
+        text-align: center;
+      }
+
+      .tempo-relogio span {
+        display: block;
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+      }
+
+      .ciclo-lua #icone-lua {
+        font-size: 3rem;
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+      }
+
+      .evento-roda {
+        max-width: 300px;
+      }
+
+      .evento-roda h3 {
+        margin: 0 0 10px 0;
+        font-size: 1.2rem;
+      }
+
+      .evento-roda p {
+        font-size: 0.9rem;
+        color: #e0dcd3;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container nav-wrapper">
+        <h1 class="logo">Grimório: <span class="realce"> Jaque Pauxis !</span></h1>
+        <input type="checkbox" id="menu-toggle" />
+        <label for="menu-toggle" class="menu-icon">&#9776;</label>
+
+        <nav class="navbar">
+          <a href="rodaAno.html">Roda do Ano</a>
+          <a href="#Grimório">Grimório</a>
+          <a href="#contato">Contato</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="container hero-grid">
+        <div >
+          <p>Estruturar uma Roda do Ano para o bioma amazônico exige romper completamente com as metáforas de neve, colheita de trigo e outono de folhas secas caídas.
+
+Na Amazônia, a dinâmica vital é regida pelo pulso das águas (o ciclo hidrológico de cheia, vazante, seca e repiquete), pela insolação equatorial constante (onde a variação de luminosidade diária é mínima ao longo do ano) e pela fenologia da floresta (safras de frutos, floração das matas de terra firme e de várzea).
+
+Premissas Fundamentais do Bioma Amazônico
+
+O ritmo binário da água: A alternância sazonal não é de calor e frio, mas de Mais Chuva (Inverno Amazônico) e Menos Chuva (Verão Amazônico / Estiagem).
+
+
+O conceito de fertilidade e morte: O "inverno" europeu representa dormência e morte aparente da terra; no inverno amazônico, a terra atinge o pico de fertilidade hídrica, germinação e crescimento verde massivo. O momento de desafio e recolhimento florestal severo costuma ser a seca extrema (risco de fogo e escassez nos igarapés).
+
+
+Alimentos de poder: Os grãos europeus dão lugar à mandioca (raiz ancestral), ao açaí, cacau, cupuaçu, castanhas e peixes de época
+     </p>
+        </div>
+       
+      </div>
+    </section>
+
+    <!-- <section id="sobre" class="section">
+      <div class="container about-text">
+        <h2 class="section-title" style="color: #d4af37;">Roda do Ano</h2>
+        <img src="assets/image.png" alt="Roda do Ano" class="roda-img" />
+        <p class="section-text" style="color: #e0dcd3;">
+          A Roda do Ano é um calendário simbólico e ritualístico que mapeia a passagem do tempo através dos ciclos naturais da Terra e do cosmos, servindo como uma bússola para sintonizar a vida humana com as transformações da natureza. Originalmente estruturada em oito festivais que marcam as mudanças de estações e colheitas, sua função essencial na magia natural não é prender-se a datas rígidas de outras regiões, mas sim observar e honrar o ritmo biológico e climático do próprio ambiente habitado — seja a alternância de calor e frio, ou o fluxo vital das águas, secas e safras locais.
+        </p>
+        <a href="rodaAno.html" class="btn btn-primary">Mais</a>
+      </div>
+    </section> -->
+
+    <section id="Grimório" class="section">
+      <div class="container book-wrapper">
+        <h2 class="section-title" style="color: #d4af37;">Estrutura da Roda Amazônica: 
+</h2>
+        
+        <div id="book" class="book-container">
+          
+          <div class="page page-cover">
+            <br/>
+            <br/>
+            <br/>
+            <h2>Os 8 Marcos Sazonais</h2>
+            <p>Arraste para desvendar</p>
+            <br/>
+            <br/>
+            <br/>
+            <!-- <img src="assets/samau.jpg" alt="Roda do Ano" class="roda-img"  /> -->
+            <i class="fa-solid fa-book-journal-whills" style="font-size: 3rem; margin-top: 20px;"></i>
+          </div>
+
+        <div class="page">
+            <div class="page-content projeto-card">
+              <h3>Ponto Solar das Águas (Solstício) </h3>
+              <img src="assets/roda/dez.jpg" alt="Print do projeto 1"  />
+              
+               </div>
+            </div>
+          </div>
+
+        <div class="page">
+            <div class="page-content projeto-card">
+              <!-- <img src="assets/imgs/mp.jpg" alt="Print do projeto 1"  /> -->
+              <h3>Ponto Solar das Águas (Solstício)</h3>
+              <p> Dezembro </p>
+              <br/>
+              <p>
+                Início do Inverno Amazônico: Intensificação das chuvas diárias; o solo encharca.
+              </p>
+              <p>
+                Purificação profunda pelas águas, descarrego, abertura de novos caminhos e germinação de intenções.
+              </p>
+              <!-- <div class="btns">
+                <a href="https://drive.google.com/drive/folders/14DBwAeOnQUKAyd0H5caK9MFOXV1dHkCb?usp=sharing" style="color:#d4af37;">Inspecionar Relato</a> 
+              </div> -->
+            </div>
+        </div>
+
+        
+      <div class="page">
+            <div class="page-content projeto-card">
+              <h3>Festa da Germinação e Lama</h3>
+              <img src="assets/roda/fev.jpg" alt="Print do projeto 4" />
+               <!-- </div> -->
+            </div>
+      </div>
+
+      <div class="page">
+        <div class="page-content projeto-card">
+              <!-- <img src="assets/imgs/ps.jpg" alt="Print do projeto 4" /> -->
+              <h3>Festa da Germinação e Lama</h3>
+              <p> Fevereiro </p>
+              <br/>
+              <p>
+Cheia Alta: Rios e igarapés sobem rapidamente; matas de várzea inundam; período de fecundidade vegetal explosiva.   
+           </p>
+           <p>
+            Magia de crescimento rápido, fertilidade, trabalho com elementos da terra úmida, raízes e proteção contra excessos.
+           </p>
+              <!-- <div class="btns">
+                <a href="https://notebook.google.com/notebook/bd946b0b-ace7-405c-a1b6-dc9e60971335" style="color:#d4af37;">Acessar Base</a>
+              </div> -->
+        </div>
+      </div>
+
+         <div class="page">
+            <div class="page-content projeto-card">
+              <!-- <img src="assets/imgs/bo.jpg" alt="Print do projeto 5" /> -->
+              <h3>Equinócio do Equilíbrio Hídrico</h3>
+              <p> Março </p>
+              <br/>
+              <p>
+Pico das Enchentes: Ápice da força fluvial; peixes sobem para a várzea; transição sutil na intensidade solar              </p>
+                <p>
+Equilíbrio entre água e ar, trabalho com intuição profunda, sonhos e limites energéticos.              </p>
+              <!-- <div class="btns">
+                <a href="https://youtu.be/8o-_4AzOkOQ" style="color:#d4af37;">Ver Estrutura</a>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="page">
+            <div class="page-content projeto-card">
+               <h3>Equinócio do Equilíbrio Hídrico</h3>
+              <img src="assets/roda/mar.jpg" alt="Print do projeto 5" />
+                      
+            </div>
+          </div>
+
+                       <div class="page">
+            <div class="page-content projeto-card">
+              <!-- <img src="assets/imgs/ti.jpg" alt="Print do projeto 6" /> -->
+              <h3>Festa da Vazante e Floração</h3>
+              <p> Maio </p>
+              <br/>
+              <p>
+Fim das Grandes Chuvas: As águas começam a baixar; florescimento das copas das árvores; transição climática visível              </p>
+              <p>
+Renovação, colheita de folhas e flores medicinais, trabalho com o elemento Ar e ventos da mata.              </p>
+              <!-- <div class="btns">
+                <a href="https://youtu.be/soO0FuQghJg" style="color:#d4af37;">Observar Simulação</a>
+                <a href="https://github.com/JaquelinePauxis/--Simulador-de-Ecossistema" style="color:#d4af37;">Ver Código</a>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="page">
+            <div class="page-content projeto-card">
+              <img src="assets/roda/junh.jpg" alt="Print do projeto 6" />
+              
+              </div>
+            </div>
+          </div>
+
+          <div class="page">
+            <div class="page-content projeto-card">
+              <!-- <img src="assets/imgs/ti.jpg" alt="Print do projeto 6" /> -->
+              <h3>Ponto Solar da Luz / Transição (Solstício)</h3>
+              <p> Junho </p>
+              <br/>
+              <p>
+Início do Verão Amazônico: Diminuição drástica da chuva; dias mais ensolarados e céu aberto; época de ventanias.</p>
+              <p>
+                Fogo, vitalidade, celebração comunitária, queima simbólica e fortalecimento da força vital pessoal.
+              </p>
+              <!-- <div class="btns">
+                <a href="https://youtu.be/soO0FuQghJg" style="color:#d4af37;">Observar Simulação</a>
+                <a href="https://github.com/JaquelinePauxis/--Simulador-de-Ecossistema" style="color:#d4af37;">Ver Código</a>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="page">
+            <div class="page-content projeto-card">
+              <img src="assets/roda/ago.jpg" alt="Print do projeto 6" />
+              
+              </div>
+            </div>
+          </div>
+
+           <div class="page">
+            <div class="page-content projeto-card">
+              <!-- <img src="assets/imgs/ti.jpg" alt="Print do projeto 6" /> -->
+              <h3>Festa da Grande Safra e Fartura</h3>
+               <p> Agosto </p>
+              <br/>
+              <p>
+Pico da Estiagem e Safra: Época de apogeu da colheita (açaí de safra, frutos regionais); surgimento de praias fluviais.              </p>
+              <p>Agradecimento, prosperidade material, consagração de alimentos locais e feitura de oferendas com sementes e fibras. </p>
+                <!-- <a href="https://youtu.be/soO0FuQghJg" style="color:#d4af37;">Observar Simulação</a>
+                <a href="https://github.com/JaquelinePauxis/--Simulador-de-Ecossistema" style="color:#d4af37;">Ver Código</a> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="page">
+            <div class="page-content projeto-card">
+              <img src="assets/roda/ago2.jpg" alt="Print do projeto 6" />
+              
+              </div>
+            </div>
+          </div>
+
+          <div class="page">
+            <div class="page-content projeto-card">
+              <!-- <img src="assets/imgs/ti.jpg" alt="Print do projeto 6" /> -->
+              <h3>Equinócio das Cinzas e Solos Expostos</h3>
+                <p> Setembro</p>
+              <br/>
+              <p>Seca Severa: Calor intenso, terra ressecada, solo exposto; vulnerabilidade da mata ao fogo; escassez hídrica.</p>
+              <p>Resiliência, ancoragem, trabalho com sombras, proteção contra queimadas/esgotamento e honra à resistência da terra. </p>
+                <!-- <a href="https://youtu.be/soO0FuQghJg" style="color:#d4af37;">Observar Simulação</a>
+                <a href="https://github.com/JaquelinePauxis/--Simulador-de-Ecossistema" style="color:#d4af37;">Ver Código</a> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="page">
+            <div class="page-content projeto-card">
+              <img src="assets/roda/set.jpg" alt="Print do projeto 6" />
+              
+              </div>
+            </div>
+          </div>
+
+             <div class="page">
+            <div class="page-content projeto-card">
+              <!-- <img src="assets/imgs/ti.jpg" alt="Print do projeto 6" /> -->
+              <h3>Festa do Retorno das Águas</h3>
+               <p> Novembro</p>
+              <br/>
+              <p>
+Primeiras Trovoadas: O "repiquete"; nuvens pesadas se acumulam; a floresta respira aliviada com as primeiras pancadas de chuva.              <p>Honra aos ancestrais e espíritos guardiões da mata/rios; preparação dos caldeirões e recepção do novo ciclo de chuvas.</p>
+              <!-- <div class="btns">
+                <a href="https://youtu.be/soO0FuQghJg" style="color:#d4af37;">Observar Simulação</a>
+                <a href="https://github.com/JaquelinePauxis/--Simulador-de-Ecossistema" style="color:#d4af37;">Ver Código</a>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="page">
+            <div class="page-content projeto-card">
+              <img src="assets/roda/nov.jpg" alt="Print do projeto 6" />
+              
+              </div>
+            </div>
+          </div>
+
+          <div class="page">
+            <div class="page-content projeto-card">
+              <img src="assets/roda01.jpg" alt="Print do projeto 9" />
+              <h3>A Arquitetura da Roda</h3>
+              <p>
+                A integração do tempo com a vida. A Roda do Ano transcreve as mudanças do clima e das colheitas em variáveis lógicas, transformando ciclos biológicos milenares em algoritmos que guiam a interface.
+              </p>
+              <div class="btns">
+                <a href="index.html" style="color:#d4af37;">Voltar ao Início</a>
+              </div>
+            </div>
+          </div>
+
+         
+          <div class="page page-cover">
+            <h2>O Fim é Apenas um Novo Loop</h2>
+            <p style="margin: 20px; font-size: 0.95rem; line-height: 1.6; text-align: justify; color: #e0dcd3;">
+              A Roda nunca para de girar e o aprendizado nunca cessa. Este grimório é um registro vivo de projetos, narrativas e linhas de código em constante evolução. Se você busca compreender a lógica que move essas criações ou está pronto para escrever a sua própria história , as portas estão abertas.
+            </p>
+            <p style="margin-bottom: 30px; font-weight: bold;">Nos encontramos no próximo ciclo.</p>
+            <a href="#contato" class="btn btn-primary" style="background: #2b3a27; color: #d4af37; border: 1px solid #d4af37;">
+              <i class="fa-brands fa-whatsapp"></i> Invocar Contato
+            </a>
+          </div>
+
+        </div>
+
+        <div class="book-controls">
+          <button id="btn-prev"><i class="fa-solid fa-arrow-left"></i> Voltar</button>
+          <button id="btn-next">Avançar <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+        <div class="btns">
+                <a href="index.html" style="color:#d4af37;">Voltar ao Início</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contato" class="section">
+      <div class="container contato-card">
+        <h2 style="color: #d4af37;">Contato</h2>
+        <p style="color: #e0dcd3;"> Em breve 😊</p>
+        <div class="social-links">
+          <a href="https://wa.me/5591 " class="btn-social" style="color: #d4af37;">
+            <i class="fa-brands fa-whatsapp"></i> Whatsapp
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p style="color: #e0dcd3;">
+        Template criado por
+        <a href="https://github.com/JaquelinePauxis" target="_blank" style="color: #d4af37;">@JaquelinePauxis</a>
+        • Direitos Autorais Reservados 🦋
+      </p>
+    </footer>
+
+    <script>
+      const text = "Jaque Pauxis🦋";
+      const typedEl = document.getElementById("typed");
+      let i = 0;
+      function digitar() {
+        if (i < text.length) {
+          typedEl.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(digitar, 120);
+        }
+      }
+      window.addEventListener("DOMContentLoaded", digitar);
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const bookElement = document.getElementById('book');
+        
+        const pageFlip = new St.PageFlip(bookElement, {
+          width: 400,
+          height: 600,
+          size: 'stretch',
+          minWidth: 300,
+          maxWidth: 500,
+          minHeight: 450,
+          maxHeight: 750,
+          maxShadowOpacity: 0.8, /* Sombra mais densa para o modo dark */
+          showCover: true,
+          mobileScrollSupport: false
+        });
+
+        pageFlip.loadFromHTML(document.querySelectorAll('.page'));
+
+        document.getElementById('btn-prev').addEventListener('click', () => {
+          pageFlip.flipPrev();
+        });
+
+        document.getElementById('btn-next').addEventListener('click', () => {
+          pageFlip.flipNext();
+        });
+      });
+
+    
+     
+    </script>
+  </body>
+</html>

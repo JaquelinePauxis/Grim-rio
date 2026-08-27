@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="style.css" />
+    <title>Grimórios</title>
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bitcount:wght@100..900&family=Sora:wght@100..800&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <style>
+      /* Fundo Verde Terroso para a página inteira */
+      body {
+        background-color: #3b4d36 !important;
+      }
+
+      .book-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-top: 20px;
+      }
+
+      .book-container {
+        position: relative;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+      }
+
+      /* Páginas internas pretas com detalhes dourados */
+      .page {
+        background-color: #111111; 
+        color: #e0dcd3; /* Dourado pálido para não cansar a leitura */
+        border: 1px solid #d4af37;
+        box-shadow: inset 0 0 25px rgba(212, 175, 55, 0.05); /* Brilho interno mágico */
+        box-sizing: border-box;
+        overflow: hidden;
+      }
+
+      .page-content {
+        padding: 20px;
+        height: 100%;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Títulos em dourado vibrante */
+      .page-content h3 {
+        color: #d4af37;
+        font-family: 'Sora', sans-serif;
+        text-shadow: 0 0 5px rgba(212, 175, 55, 0.3);
+      }
+
+      /* Estilização da capa e contracapa */
+      .page-cover {
+        background-color: #0a0a0a;
+        color: #d4af37;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border: 2px solid #d4af37;
+      }
+
+      .page-cover h2 {
+        font-family: 'Sora', sans-serif;
+        font-size: 2rem;
+        margin-bottom: 10px;
+      }
+
+      .page-cover p {
+        font-size: 1rem;
+        opacity: 0.8;
+      }
+
+      .book-controls {
+        margin-top: 30px;
+        display: flex;
+        gap: 15px;
+      }
+
+      .book-controls button {
+        background-color: #2b3a27; /* Verde escuro acompanhando o fundo */
+        color: #d4af37;
+        border: 1px solid #d4af37;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: 'Sora', sans-serif;
+        font-weight: bold;
+        transition: 0.3s;
+      }
+
+      .book-controls button:hover {
+        background-color: #d4af37;
+        color: #111111;
+      }
+
+      .widget-temporal {
+        background: #111111;
+        color: #d4af37;
+        border: 2px solid #d4af37;
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        margin: 30px auto;
+        max-width: 800px;
+        font-family: 'Sora', sans-serif;
+        text-align: center;
+      }
+
+      .tempo-relogio span {
+        display: block;
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+      }
+
+      .ciclo-lua #icone-lua {
+        font-size: 3rem;
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+      }
+
+      .evento-roda {
+        max-width: 300px;
+      }
+
+      .evento-roda h3 {
+        margin: 0 0 10px 0;
+        font-size: 1.2rem;
+      }
+
+      .evento-roda p {
+        font-size: 0.9rem;
+        color: #e0dcd3;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container nav-wrapper">
+        <h1 class="logo">Grimório: <span class="realce"> Jaque Pauxis !</span></h1>
+        <input type="checkbox" id="menu-toggle" />
+        <label for="menu-toggle" class="menu-icon">&#9776;</label>
+
+        <nav class="navbar">
+          <a href="rodaAno.html">Roda do Ano</a>
+          <a href="#Grimório">Grimório</a>
+          <a href="#contato">Contato</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-img">
+          <img src="assets/image (1).png" alt="Foto de perfil" class="profile-img" />
+        </div>
+        <div class="hero-text">
+          <h2><span class="typed-text" id="typed"></span></h2>
+          
+          <div class="widget-temporal">
+            <div class="tempo-relogio">
+              <span id="data-atual">--/--/----</span>
+              <span id="hora-atual">--:--:--</span>
+            </div>
+            
+            <div class="ciclo-lua">
+              <div id="icone-lua">🌕</div>
+              <span id="nome-lua">Calculando lua...</span>
+            </div>
+
+            <div class="evento-roda">
+              <h3>Fase Atual da Roda: <span id="nome-evento">...</span></h3>
+              <p id="desc-evento">Lendo as estrelas...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sobre" class="section">
+      <div class="container about-text">
+        <h2 class="section-title" style="color: #d4af37;">Roda do Ano</h2>
+        <img src="assets/image.png" alt="Roda do Ano" class="roda-img" />
+        <p class="section-text" style="color: #e0dcd3;">
+          A Roda do Ano é um calendário simbólico e ritualístico que mapeia a passagem do tempo através dos ciclos naturais da Terra e do cosmos, servindo como uma bússola para sintonizar a vida humana com as transformações da natureza. Originalmente estruturada em oito festivais que marcam as mudanças de estações e colheitas, sua função essencial na magia natural não é prender-se a datas rígidas de outras regiões, mas sim observar e honrar o ritmo biológico e climático do próprio ambiente habitado — seja a alternância de calor e frio, ou o fluxo vital das águas, secas e safras locais.
+        </p>
+        <a href="rodaAno.html" class="btn btn-primary">Mais</a>
+      </div>
+    </section>
+
+    <section id="Grimório" class="section">
+      <div class="container book-wrapper">
+        <h2 class="section-title" style="color: #d4af37;">Grimório</h2>
+        
+        <div id="book" class="book-container">
+          
+          <div class="page page-cover">
+            <br/>
+            <br/>
+            <br/>
+            <h2>Projetos & Feitiços</h2>
+            <p>Arraste para desvendar</p>
+            <img src="assets/samau.jpg" alt="Roda do Ano" class="roda-img"  />
+            <!-- <i class="fa-solid fa-book-journal-whills" style="font-size: 3rem; margin-top: 20px;"></i> -->
+          </div>
+
+        <div class="page">
+            <div class="page-content projeto-card">
+              <h3>Memórias Póstumas</h3>
+              <img src="assets/imgs/mp.jpg" alt="Print do projeto 1"  />
+              
+               </div>
+            </div>
+          </div>
+
+        <div class="page">
+            <div class="page-content projeto-card">
+              <!-- <img src="assets/imgs/mp.jpg" alt="Print do projeto 1"  /> -->
+              <h3>Memórias Póstumas</h3>
+              <p>
+                Um relato interativo moldado por decisões lógicas. Este diário narrativo explora tempos sombrios , onde cada ramificação decisiva revela consequências únicas.
+              </p>
+              <div class="btns">
+                <a href="https://drive.google.com/drive/folders/14DBwAeOnQUKAyd0H5caK9MFOXV1dHkCb?usp=sharing" style="color:#d4af37;">Inspecionar Relato</a>
+              </div>
+            </div>
+        </div>
+
+        
+      <div class="page">
+            <div class="page-content projeto-card">
+              <h3>O Pergaminho das Sintaxes</h3>
+              <img src="assets/imgs/ps.jpg" alt="Print do projeto 4" />
+               <!-- </div> -->
+            </div>
+      </div>
+
+      <div class="page">
+        <div class="page-content projeto-card">
+              <!-- <img src="assets/imgs/ps.jpg" alt="Print do projeto 4" /> -->
+              <h3>O Pergaminho das Sintaxes</h3>
+              <p>
+                Uma base de conhecimento ágil e dinâmica. Estruturada para fornecer atalhos de desenvolvimento, lógicas de programação e resoluções rápidas quando os sistemas exigem respostas imediatas.
+              </p>
+              <div class="btns">
+                <a href="https://notebook.google.com/notebook/bd946b0b-ace7-405c-a1b6-dc9e60971335" style="color:#d4af37;">Acessar Base</a>
+              </div>
+        </div>
+      </div>
+
+         <div class="page">
+            <div class="page-content projeto-card">
+              <!-- <img src="assets/imgs/bo.jpg" alt="Print do projeto 5" /> -->
+              <h3>A Biblioteca Oculta</h3>
+              <p>
+                O repositório onde a teoria fundamenta a magia. Um acervo de livros, artigos e pesquisas fundamentais para a construção de arquiteturas de software sólidas e narrativas bem projetadas.
+              </p>
+              <div class="btns">
+                <a href="https://drive.google.com/drive/folders/1Fo6XGaU-TnKytlNZjJHQ3KPju4gJ9Y7l?usp=drive_link" style="color:#d4af37;">Ver Estrutura</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="page">
+            <div class="page-content projeto-card">
+               <h3>A Biblioteca Oculta</h3>
+              <img src="assets/imgs/bo.jpg" alt="Print do projeto 5" />
+                      
+            </div>
+          </div>
+
+          <div class="page">
+            <div class="page-content projeto-card">
+              <!-- <img src="assets/imgs/ti.jpg" alt="Print do projeto 6" /> -->
+              <h3>A Torre Invertida</h3>
+              <p>
+                Um experimento narrativo em constante mutação. Construído em formato de diário, este projeto abandona a lógica linear tradicional para gerar um ecossistema de informações desconexas que desafiam a dedução.
+              </p>
+              <div class="btns">
+                <a href="https://drive.google.com/drive/folders/13JCfn3JHWJyWlIU1jPAfXf8h5olsGTqW?usp=drive_link" style="color:#d4af37;">Observar </a>
+                <!-- <a href="https://github.com/JaquelinePauxis/--Simulador-de-Ecossistema" style="color:#d4af37;">Ver Código</a> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="page">
+            <div class="page-content projeto-card">
+              <img src="assets/imgs/ti.jpg" alt="Print do projeto 6" />
+              
+              </div>
+            </div>
+          </div>
+
+          <div class="page">
+            <div class="page-content projeto-card">
+              <img src="assets/roda01.jpg" alt="Print do projeto 9" />
+              <h3>A Arquitetura da Roda</h3>
+              <p>
+                A integração do tempo com o código. A Roda do Ano transcreve as mudanças do clima e das colheitas em variáveis lógicas, transformando ciclos biológicos milenares em algoritmos que guiam a interface.
+              </p>
+              <div class="btns">
+                <a href="rodaAno.html" style="color:#d4af37;">Decifrar Lógica</a>
+              </div>
+            </div>
+          </div>
+
+         
+          <div class="page page-cover">
+            <h2>O Fim é Apenas um Novo Loop</h2>
+            <p style="margin: 20px; font-size: 0.95rem; line-height: 1.6; text-align: justify; color: #e0dcd3;">
+              A Roda nunca para de girar e o aprendizado nunca cessa. Este grimório é um registro vivo de projetos, narrativas e linhas de código em constante evolução. Se você busca compreender a lógica que move essas criações ou está pronto para escrever a sua própria história na tecnologia, as portas estão abertas.
+            </p>
+            <p style="margin-bottom: 30px; font-weight: bold;">Nos encontramos no próximo ciclo.</p>
+            <a href="#contato" class="btn btn-primary" style="background: #2b3a27; color: #d4af37; border: 1px solid #d4af37;">
+              <i class="fa-brands fa-whatsapp"></i> Invocar Contato
+            </a>
+          </div>
+
+        </div>
+
+        <div class="book-controls">
+          <button id="btn-prev"><i class="fa-solid fa-arrow-left"></i> Voltar</button>
+          <button id="btn-next">Avançar <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="contato" class="section">
+      <div class="container contato-card">
+        <h2 style="color: #d4af37;">Contato</h2>
+        <p style="color: #e0dcd3;"> Em breve 😊</p>
+        <div class="social-links">
+          <a href="https://wa.me/5591 " class="btn-social" style="color: #d4af37;">
+            <i class="fa-brands fa-whatsapp"></i> Whatsapp
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p style="color: #e0dcd3;">
+        Template criado por
+        <a href="https://github.com/JaquelinePauxis" target="_blank" style="color: #d4af37;">@JaquelinePauxis</a>
+        • Direitos Autorais Reservados 🦋
+      </p>
+    </footer>
+
+    <script>
+      const text = "Jaque Pauxis🦋";
+      const typedEl = document.getElementById("typed");
+      let i = 0;
+      function digitar() {
+        if (i < text.length) {
+          typedEl.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(digitar, 120);
+        }
+      }
+      window.addEventListener("DOMContentLoaded", digitar);
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const bookElement = document.getElementById('book');
+        
+        const pageFlip = new St.PageFlip(bookElement, {
+          width: 400,
+          height: 600,
+          size: 'stretch',
+          minWidth: 300,
+          maxWidth: 500,
+          minHeight: 450,
+          maxHeight: 750,
+          maxShadowOpacity: 0.8, /* Sombra mais densa para o modo dark */
+          showCover: true,
+          mobileScrollSupport: false
+        });
+
+        pageFlip.loadFromHTML(document.querySelectorAll('.page'));
+
+        document.getElementById('btn-prev').addEventListener('click', () => {
+          pageFlip.flipPrev();
+        });
+
+        document.getElementById('btn-next').addEventListener('click', () => {
+          pageFlip.flipNext();
+        });
+      });
+
+      // Lógica da Roda e Tempo, agora protegida pelo carregamento do DOM
+      window.addEventListener('DOMContentLoaded', () => {
+          const rodaDoAnoSul = [
+            { id: "Ciclo da Vazante", inicio: "0501", fim: "0505", icone: "🍂", desc: "Fim das grandes chuvas. Tempo de honrar os ciclos que se encerram e preparar a terra." },
+            { id: "Despertar do Sol", inicio: "0620", fim: "0623", icone: "☀️", desc: "Solstício. O início do verão amazônico e o retorno da luz contínua." },
+            { id: "Tempo das Praias", inicio: "0801", fim: "0805", icone: "🌱", desc: "Rios baixos e terras férteis. As primeiras sementes começam a brotar nas margens." },
+            { id: "Equinócio dos Ventos", inicio: "0920", fim: "0923", icone: "🌬️", desc: "Equilíbrio solar. O calor se intensifica e os ventos preparam a floresta para a transição." },
+            { id: "Fogo da Floresta", inicio: "1031", fim: "1105", icone: "🔥", desc: "Ápice do calor e da estiagem. Tempo de fertilidade e força antes do retorno das nuvens." },
+            { id: "Retorno das Águas", inicio: "1220", fim: "1223", icone: "🌧️", desc: "Solstício. As primeiras gotas do inverno amazônico tocam o solo. Boas-vindas à chuva." },
+            { id: "Cheia dos Rios", inicio: "0202", fim: "0206", icone: "🌿", desc: "As águas sobem. Época de fartura e da primeira grande colheita da floresta." },
+            { id: "Equinócio das Águas", inicio: "0320", fim: "0323", icone: "🌊", desc: "Pico do inverno. O equilíbrio entre o dia e a noite sob as águas abundantes." }
+          ];
+
+          function calcularFaseDaLua(dataAtual) {
+            const luaNovaReferencia = new Date(2024, 0, 11).getTime();
+            const diferencaTempo = dataAtual.getTime() - luaNovaReferencia;
+            const diasPassados = diferencaTempo / (1000 * 60 * 60 * 24);
+            const idadeDaLua = diasPassados % 29.53058867;
+
+            if (idadeDaLua < 1.84 || idadeDaLua > 27.68) return { nome: "Nova", icone: "🌑" };
+            if (idadeDaLua < 5.53) return { nome: "Crescente Côncava", icone: "🌒" };
+            if (idadeDaLua < 9.22) return { nome: "Quarto Crescente", icone: "🌓" };
+            if (idadeDaLua < 12.91) return { nome: "Crescente Gibosa", icone: "🌔" };
+            if (idadeDaLua < 16.61) return { nome: "Cheia", icone: "🌕" };
+            if (idadeDaLua < 20.30) return { nome: "Minguante Gibosa", icone: "🌖" };
+            if (idadeDaLua < 23.99) return { nome: "Quarto Minguante", icone: "🌗" };
+            return { nome: "Minguante Côncava", icone: "🌘" };
+          }
+
+          function verificarRodaDoAno(dataAtual) {
+            const mesFormatado = String(dataAtual.getMonth() + 1).padStart(2, '0');
+            const diaFormatado = String(dataAtual.getDate()).padStart(2, '0');
+            const mmddAtual = mesFormatado + diaFormatado;
+            
+            let eventoAtual = null;
+
+            for (let i = 0; i < rodaDoAnoSul.length; i++) {
+              let evento = rodaDoAnoSul[i];
+              if (mmddAtual >= evento.inicio && mmddAtual <= evento.fim) {
+                eventoAtual = evento;
+                break;
+              }
+            }
+
+            if (!eventoAtual) {
+              let cicloX = rodaDoAnoSul[rodaDoAnoSul.length - 1]; 
+              let cicloY = rodaDoAnoSul[0]; 
+
+              for (let i = 0; i < rodaDoAnoSul.length; i++) {
+                if (mmddAtual < rodaDoAnoSul[i].inicio) {
+                  cicloY = rodaDoAnoSul[i];
+                  cicloX = (i === 0) ? rodaDoAnoSul[rodaDoAnoSul.length - 1] : rodaDoAnoSul[i - 1];
+                  break;
+                }
+              }
+
+              eventoAtual = { 
+                id: "Período de Transição", 
+                icone: "⏳", 
+                desc: `De ${cicloX.id}: A roda continua girando, aguardando o próximo ciclo (${cicloY.id}).` 
+              };
+            }
+
+            return eventoAtual;
+          }
+
+          function atualizarWidget() {
+            const agora = new Date();
+            document.getElementById('data-atual').textContent = agora.toLocaleDateString('pt-BR');
+            document.getElementById('hora-atual').textContent = agora.toLocaleTimeString('pt-BR');
+
+            const luaInfo = calcularFaseDaLua(agora);
+            document.getElementById('icone-lua').textContent = luaInfo.icone;
+            document.getElementById('nome-lua').textContent = luaInfo.nome;
+
+            const rodaInfo = verificarRodaDoAno(agora);
+            document.getElementById('nome-evento').textContent = `${rodaInfo.icone} ${rodaInfo.id}`;
+            document.getElementById('desc-evento').textContent = rodaInfo.desc;
+          }
+
+          setInterval(atualizarWidget, 1000);
+          atualizarWidget(); 
+      });
+    </script>
+  </body>
+</html>
